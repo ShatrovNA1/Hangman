@@ -198,22 +198,26 @@ void main() {
     State gameState = State.MENU;
 
     while (gameState != State.EXIT) {
-        if (gameState == State.MENU) {
-            printMenu();
-            String input = IO.readln();
-            switch (input) {
-                case "1":
-                    gameState = State.GAME;
-                    break;
-                case "2":
-                    gameState = State.EXIT;
-                    break;
-                default:
-                    IO.println("Неправильный ввод.");
+        switch (gameState) {
+            case MENU -> {
+                printMenu();
+                String input = IO.readln();
+                switch (input) {
+                    case "1":
+                        gameState = State.GAME;
+                        break;
+                    case "2":
+                        gameState = State.EXIT;
+                        break;
+                    default:
+                        IO.println("Неправильный ввод.");
+                }
             }
-        } else if (gameState == State.GAME) {
-            startGame(allWords);
-            gameState = State.MENU;
+            case GAME -> {
+                startGame(allWords);
+                gameState = State.MENU;
+            }
+            case EXIT -> IO.println("До свидания!");
         }
     }
 
